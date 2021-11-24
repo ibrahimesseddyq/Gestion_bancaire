@@ -12,6 +12,7 @@
 	struct compte comptes[1000];
 	
 void add();
+void fidelisation();
 void operations();
 void retrait(int nb);
 void depot(int nb);
@@ -21,63 +22,31 @@ void Menu();
 void searchCIN();
 void afficheAscendant();
 void afficheDescendant();
-
-	int id,nb_acc,i;
+//ncc compteur des comptes sur l app
+//nNcc nombre des nouveau comptes a creer 
+	int ncc=0,nNcc;
 	
 int main()
 {
 	Menu();
 
 }
-/*void afficheAscendant(){
-	int i;
-	int j;
- 	struct compte t;
-	for (i=0;i<nb_acc;i++){
-		for(j=0;j<nb_acc-i-1;j++){
-			if(comptes[i].montant>comptes[i+1].montant){
-			t=comptes[i];
-			comptes[i]=comptes[i+1];
-			comptes[i+1]=t;
-			}
-		}
-	}
-	for (i = 0; i <= nb_acc ; i++) {
-		printf("les comptes des client est %s %s %s %f \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
-	}
-}
-
-void afficheDescendant(){
-	int i,j;
- 	struct compte t;
-		for (i=0;i<nb_acc;i++){
-		for(j=0;j>nb_acc-i-1;j++){
-			if(comptes[i].montant>comptes[i+1].montant){
-			t=comptes[i];
-			comptes[i]=comptes[i+1];
-			comptes[i+1]=t;
-			}
-		}
-	}	for (i = 0; i <= nb_acc ; i++) {
-		printf("les comptes des client est %s %s %s %lf \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
-	}
-}*/
 void affichSUP(){
 	int i,j;
 	float A;
 	printf("Entrer un Montant ");
 	scanf("%f",&A);
   	struct compte t;
-	for (i=0;i<nb_acc;i++){
-		for(j=0;j<nb_acc-i-1;j++){
-			if(comptes[i].montant>comptes[i+1].montant){
-			t=comptes[i];
-			comptes[i]=comptes[i+1];
-			comptes[i+1]=t;
+	for (i=0;i<ncc;i++){
+		for(j=0;j<ncc-i-1;j++){
+			if(comptes[j].montant>comptes[j+1].montant){
+			t=comptes[j];
+			comptes[j]=comptes[j+1];
+			comptes[j+1]=t;
 			}
 		}
 	}
-	for (i = 0; i <= nb_acc ; i++) {
+	for (i = 0; i <= ncc ; i++) {
 		if (comptes[i].montant>A)
 		printf("les comptes des client est %s %s %s %lf \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
 	}
@@ -88,17 +57,17 @@ void affichINF(){
 	printf("Entrer un Montant ");
 	scanf("%f",&A);
   	struct compte t;
-	for (i=0;i<nb_acc;i++){
-		for(j=0;j>nb_acc-i-1;j++){
-			if(comptes[i].montant>comptes[i+1].montant){
-			t=comptes[i];
-			comptes[i]=comptes[i+1];
-			comptes[i+1]=t;
+	for (i=0;i<ncc;i++){
+		for(j=0;j>ncc-i-1;j++){
+			if(comptes[j].montant<comptes[j+1].montant){
+			t=comptes[j];
+			comptes[j]=comptes[j+1];
+			comptes[j+1]=t;
 			}
 		}
 	}
-	for (i = 0; i <= nb_acc ; i++) {
-		if (comptes[i].montant<A)
+	for (i = 0; i <= ncc ; i++) {
+		if (comptes[i].montant>A)
 		printf("les comptes des client est %s %s %s %lf \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
 	}
 }
@@ -107,29 +76,30 @@ void affichINF(){
 void add()
 {
 	printf("entrer your name :");
-	scanf("%s",comptes[id].nom);
+	scanf("%s",comptes[ncc].nom);
 	__fpurge(stdin);
 	
 	printf("entrer your first name :");
-	scanf("%s",comptes[id].prenom);
+	scanf("%s",comptes[ncc].prenom);
 	__fpurge(stdin);
 	
 	printf("entrer your CIN :");
-	scanf("%s",comptes[id].cin);
+	scanf("%s",comptes[ncc].cin);
 	__fpurge(stdin);
 	
 	printf("entrer your montant");
-	scanf("%f",&comptes[id].montant);
+	scanf("%f",&comptes[ncc].montant);
 	__fpurge(stdin);
 	
-	id++;
+	
+	ncc++;
 }
 void operations(){
 	char cin1[10];
 	int i,choix,pos;
 	printf("Entrer le CIN que vous chercher");
 	scanf("%s",cin1);
-	for(i=0;i<id;i++){
+	for(i=0;i<ncc;i++){
 		if(strcmp(cin1,comptes[i].cin)==0)
 		{
 			printf("le montant cherchee est %f",comptes[i].montant);
@@ -151,7 +121,7 @@ void searchCIN(){
 	int i,pos;
 	printf("Entrer le CIN de compte que vous chercher");
 	scanf("%s",cin2);
-	for(i=0;i<id;i++){
+	for(i=0;i<ncc;i++){
 		if(strcmp(cin2,comptes[i].cin)==0)
 		{
 		printf("le compte cherchee est :\n Nom : %s  Prenom : %s\n CIN : %s  Montant : %f\n",	comptes[pos].nom,comptes[pos].prenom,comptes[pos].cin,&comptes[pos].montant);	
@@ -223,7 +193,7 @@ void aff(){
 
 
 void Menu(){
-	
+	int i;	
 	int choix;
 
 	printf("          Menu          \n");
@@ -238,9 +208,11 @@ void Menu(){
 			retour();
 			break;
 		case 2:
+			printf("hhhhh");
 			printf("combien de comptes vous voulez cree?");
-			scanf("%d",&nb_acc);
-			while(i<nb_acc){
+			scanf("%d",&nNcc);
+			i=0;
+			while(i<nNcc){
 				add();
 				i++;
 				system("clear");
@@ -269,8 +241,8 @@ void afficheDescendant()
 	   int i,k;
 	   struct compte t;
 
-	 for (i=0;i<nb_acc;i++){
-		 for(k=0;k<nb_acc-i-1;k++){
+	 for (i=0;i<ncc;i++){
+		 for(k=0;k<ncc-i-1;k++){
 			if(comptes[k].montant<comptes[k+1].montant)
 			{
 				t=comptes[k];
@@ -279,7 +251,7 @@ void afficheDescendant()
 			}
 		}
 	 }
-	for (i = 0; i < id ; i++) {
+	for (i = 0; i < ncc ; i++) {
 	printf("le compte de client est:\n Nom : %s |Prenom : %s |CIN : %s |Montant : %f \n \n ",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
 							     }
 }
@@ -287,8 +259,8 @@ void fidelisation(){
 		int i,k,j;
 		struct compte t;
 
-	 for (i=0;i<nb_acc;i++){
-		 for(k=0;k<nb_acc-i-1;k++){
+	 for (i=0;i<ncc;i++){
+		 for(k=0;k<ncc-i-1;k++){
 			if(comptes[k].montant<comptes[k+1].montant)
 			{
 				t=comptes[k];
@@ -310,8 +282,8 @@ void afficheAscendant()
 	   int i,k;
 	   struct compte t;
 
-	 for (i=0;i<nb_acc;i++){
-		 for(k=0;k<=nb_acc-i-1;k++){
+	 for (i=0;i<ncc;i++){
+		 for(k=0;k<=ncc-i-1;k++){
 			if(comptes[k].montant>comptes[k+1].montant)
 			{
 				t=comptes[k];
@@ -320,7 +292,7 @@ void afficheAscendant()
 			}
 		}
 	 }
-	for (i = 0; i < id ; i++) {
+	for (i = 0; i < ncc ; i++) {
 	printf("le compte de client est:\n Nom : %s |Prenom : %s |CIN : %s |Montant : %f \n \n ",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
 							     }
 }
