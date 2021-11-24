@@ -19,8 +19,8 @@ void search();
 void retour();
 void Menu();
 void searchCIN();
-void affAsc();
-void affDsc();
+void afficheAscendant();
+void afficheDescendant();
 
 	int id,nb_acc,i;
 	
@@ -29,7 +29,7 @@ int main()
 	Menu();
 
 }
-void afficheAscendant(){
+/*void afficheAscendant(){
 	int i;
 	int j;
  	struct compte t;
@@ -59,9 +59,9 @@ void afficheDescendant(){
 			}
 		}
 	}	for (i = 0; i <= nb_acc ; i++) {
-		printf("les comptes des client est %s %s %s %f \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
+		printf("les comptes des client est %s %s %s %lf \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
 	}
-}
+}*/
 void affichSUP(){
 	int i,j;
 	float A;
@@ -79,7 +79,7 @@ void affichSUP(){
 	}
 	for (i = 0; i <= nb_acc ; i++) {
 		if (comptes[i].montant>A)
-		printf("les comptes des client est %s %s %s %f \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
+		printf("les comptes des client est %s %s %s %lf \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
 	}
 }
 void affichINF(){
@@ -98,8 +98,8 @@ void affichINF(){
 		}
 	}
 	for (i = 0; i <= nb_acc ; i++) {
-		if (comptes[i].montant>A)
-		printf("les comptes des client est %s %s %s %f \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
+		if (comptes[i].montant<A)
+		printf("les comptes des client est %s %s %s %lf \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
 	}
 }
 
@@ -258,5 +258,45 @@ void Menu(){
 
 
 	}
+}
+void afficheDescendant()
+{
+
+	   int i,k;
+	   struct compte t;
+
+	 for (i=0;i<nb_acc;i++){
+		 for(k=0;k<nb_acc-i-1;k++){
+			if(comptes[k].montant<comptes[k+1].montant)
+			{
+				t=comptes[k];
+				comptes[k]=comptes[k+1];
+				comptes[k+1]=t;
+			}
+		}
+	 }
+	for (i = 0; i < id ; i++) {
+	printf("le compte de client est:\n Nom : %s |Prenom : %s |CIN : %s |Montant : %f \n \n ",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
+							     }
+}
+void afficheAscendant()
+{
+
+	   int i,k;
+	   struct compte t;
+
+	 for (i=0;i<nb_acc;i++){
+		 for(k=0;k<=nb_acc-i-1;k++){
+			if(comptes[k].montant>comptes[k+1].montant)
+			{
+				t=comptes[k];
+				comptes[k]=comptes[k+1];
+				comptes[k+1]=t;
+			}
+		}
+	 }
+	for (i = 0; i < id ; i++) {
+	printf("le compte de client est:\n Nom : %s |Prenom : %s |CIN : %s |Montant : %f \n \n ",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
+							     }
 }
 
