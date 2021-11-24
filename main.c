@@ -255,6 +255,10 @@ void Menu(){
 			aff();
 			retour();
 			break;
+		case 5:
+			fidelisation();
+			retour();
+			break;
 
 
 	}
@@ -278,6 +282,27 @@ void afficheDescendant()
 	for (i = 0; i < id ; i++) {
 	printf("le compte de client est:\n Nom : %s |Prenom : %s |CIN : %s |Montant : %f \n \n ",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
 							     }
+}
+void fidelisation(){
+		int i,k,j;
+		struct compte t;
+
+	 for (i=0;i<nb_acc;i++){
+		 for(k=0;k<nb_acc-i-1;k++){
+			if(comptes[k].montant<comptes[k+1].montant)
+			{
+				t=comptes[k];
+				comptes[k]=comptes[k+1];
+				comptes[k+1]=t;
+			}
+		}
+	 }
+	 for(j=0;j<3;j++){
+		 comptes[j].montant= comptes[j].montant + (comptes[j].montant*0.013);
+		 printf("le nouveau montant du compte numero %d est : %f ",j+1,comptes[j].montant);
+	 }
+
+
 }
 void afficheAscendant()
 {
