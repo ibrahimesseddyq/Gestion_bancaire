@@ -208,7 +208,6 @@ void Menu(){
 			retour();
 			break;
 		case 2:
-			printf("hhhhh");
 			printf("combien de comptes vous voulez cree?");
 			scanf("%d",&nNcc);
 			i=0;
