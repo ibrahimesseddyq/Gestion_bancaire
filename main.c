@@ -48,7 +48,7 @@ void affichSUP(){
 	}
 	for (i = 0; i <= ncc ; i++) {
 		if (comptes[i].montant>A)
-		printf("les comptes des client est %s %s %s %lf \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
+		printf("les comptes des client est %s %s %s %lf \n \n 	",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
 	}
 }
 void affichINF(){
@@ -241,12 +241,12 @@ void afficheDescendant()
 	   struct compte t;
 
 	 for (i=0;i<ncc;i++){
-		 for(k=0;k<ncc-i-1;k++){
-			if(comptes[k].montant<comptes[k+1].montant)
+		 for(k=1;k<ncc-i-1;k++){
+			if(comptes[k - 1].montant<comptes[k].montant)
 			{
 				t=comptes[k];
-				comptes[k]=comptes[k+1];
-				comptes[k+1]=t;
+				comptes[k]=comptes[k-1];
+				comptes[k-1]=t;
 			}
 		}
 	 }
@@ -282,12 +282,12 @@ void afficheAscendant()
 	   struct compte t;
 
 	 for (i=0;i<ncc;i++){
-		 for(k=0;k<=ncc-i-1;k++){
-			if(comptes[k].montant>comptes[k+1].montant)
+		 for(k=1;k<=ncc-i-1;k++){
+			if(comptes[k-1].montant>comptes[k].montant)
 			{
-				t=comptes[k];
-				comptes[k]=comptes[k+1];
-				comptes[k+1]=t;
+				t=comptes[k-1];
+				comptes[k-1]=comptes[k];
+				comptes[k]=t;
 			}
 		}
 	 }
