@@ -58,14 +58,14 @@ void affichINF(){
 	scanf("%f",&A);
   	struct compte t;
 	for (i=0;i<ncc;i++){
-		for(j=0;j>ncc-i-1;j++){
+		for(j=0;j<ncc-i-1;j++){
 			if(comptes[j].montant<comptes[j+1].montant){
 			t=comptes[j];
 			comptes[j]=comptes[j+1];
 			comptes[j+1]=t;
 			}
 		}
-	}
+}
 	for (i = 0; i <= ncc ; i++) {
 		if (comptes[i].montant>A)
 		printf("les comptes des client est %s %s %s %lf \n \n 				",comptes[i].nom,comptes[i].prenom,comptes[i].cin,comptes[i].montant);
